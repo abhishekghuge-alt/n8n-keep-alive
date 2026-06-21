@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Send Ping to Hugging Face
         run: |
-          curl -s -I "${{ secrets.HF_SPACE_URL }}" | head -n 1
+          curl -s -I "https://abhi917212-n8n-free.hf.space/home/workflows" | head -n 1
           echo "n8n space has been successfully pinged to prevent sleep mode."
