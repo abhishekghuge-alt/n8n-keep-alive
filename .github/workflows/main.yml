@@ -1,0 +1,15 @@
+name: Keep n8n Alive 24/7
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-space:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Ping to Hugging Face
+        run: |
+          curl -s -I "${{ secrets.HF_SPACE_URL }}" | head -n 1
+          echo "n8n space has been successfully pinged to prevent sleep mode."
