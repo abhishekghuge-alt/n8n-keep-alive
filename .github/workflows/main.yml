@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Send Ping to Hugging Face
         run: |
-          curl -s -I "https://hf.space" | head -n 1
+          curl -s -L -I "https://hf.space" | head -n 1
           echo "n8n space health check successfully completed."
