@@ -1,15 +1,21 @@
-name: Keep n8n Alive 24/7
+name: Keep n8n Alive
 
 on:
   schedule:
-    - cron: '0 * * * *'
+    # Runs safely once every 24 hours at minute 45 to reset the 48h sleep timer
+    - cron: '45 */24 * * *'
   workflow_dispatch:
+    # Enables the manual "Run workflow" trigger button
 
 jobs:
   ping-space:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Ping to Hugging Face
+      - name: Send Safe Ping to Hugging Face
         run: |
-          curl -s -L -I "https://hf.space" | head -n 1
-          echo "n8n space health check successfully completed."
+          curl -s -L "https://kali917212-n8n-free.hf.space" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+            -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" \
+            --max-time 15 \
+            -o /dev/null -w "%{http_code}"
+          echo -e "\nn8n space health check successfully completed."
